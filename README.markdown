@@ -68,7 +68,7 @@ The callback function called after the user has selected a file.
 ### filename
 #### Description
 
-_string_ *filename* ( void )
+_string_ **filename** ( void )
 
 This function returns the name of the currently selected file.
 
@@ -78,144 +78,163 @@ This function returns the name of the currently selected file.
     alert(myUpload.filename());
 
 
-=== name ===
-==== Description ====
-||_string_ *name* ( void )||
-||_void_ *name* ( string )||
+### name
+#### Description
+
+_string_ **name** ( void )
+
+_void_ **name** ( string )
 
 This function is used to get and set the name of the file input.
-==== Example ====
-{{{
-//Setting name at creation
-var myUpload = $(element).upload({
-	name: 'myFile'
-});
 
-//Changes the file input name to "myNewFile"
-myUpload.name('myNewFile');
+#### Example
 
-//Alerts "myNewFile"
-alert(myUpload.name());
-}}}
+    // Setting name at creation
+    var myUpload = $(element).upload({
+    	name: 'myFile'
+    });
 
-=== action ===
-==== Description ====
-||_string_ *action* ( void )||
-||_void_ *action* ( string )||
+    // Changes the file input name to "myNewFile"
+    myUpload.name('myNewFile');
+
+    // Alerts "myNewFile"
+    alert(myUpload.name());
+
+### action
+#### Description
+
+_string_ **action** ( void )
+
+_void_ **action** ( string )
 
 This function is used to get and set the action of the form.
-==== Example ====
-{{{
-//Setting action at creation
-var myUpload = $(element).upload({
-	action: 'upload.php'
-});
 
-//Changes the form action to "path/to/dir/newUpload.php"
-myUpload.action('path/to/dir/newUpload.php');
+#### Example
 
-//Alerts "path/to/dir/newUpload.php"
-alert(myUpload.action());
-}}}
+    // Setting action at creation
+    var myUpload = $(element).upload({
+    	action: 'upload.php'
+    });
 
-=== enctype ===
-==== Description ====
-||_string_ *enctype* ( void )||
-||_void_ *enctype* ( string )||
+    // Changes the form action to "path/to/dir/newUpload.php"
+    myUpload.action('path/to/dir/newUpload.php');
+
+    // Alerts "path/to/dir/newUpload.php"
+    alert(myUpload.action());
+
+### enctype 
+#### Description
+
+_string_ **enctype** ( void )
+
+_void_ **enctype** ( string )
 
 This function is used to get and set the enctype of the form.
-==== Example ====
-{{{
-//Setting enctype at creation
-var myUpload = $(element).upload({
-	enctype: 'multipart/form-data'
-});
 
-//Changes the form enctype to "application/x-www-form-urlencoded"
-myUpload.enctype('application/x-www-form-urlencoded');
+#### Example
 
-//Alerts "text/plain"
-alert(myUpload.enctype());
-}}}
+    // Setting enctype at creation
+    var myUpload = $(element).upload({
+    	enctype: 'multipart/form-data'
+    });
 
-=== params ===
-==== Description ====
-||_object_ *params* ( void )||
-||_void_ *params* ( object )||
+    // Changes the form enctype to "application/x-www-form-urlencoded"
+    myUpload.enctype('application/x-www-form-urlencoded');
+
+    // Alerts "text/plain"
+    alert(myUpload.enctype());
+
+### params
+#### Description
+
+_object_ **params** ( void )
+
+_void_ **params** ( object )
 
 This function is used to alter additional parameters. 
-==== Example ====
-{{{
-//Setting paramters at creation
-var myUpload = $(element).upload({
-	params: {name: 'My file', description: 'My file description'}  
-});
 
-/**
- * Settings paramaters during runtime
- * 	name: "My file" is replaced with "My new file
- * 	description: remains the same
- * 	size: is added
- */
-myUpload.params({
-	name: 'My new file', size: '1000kb'
-});
-}}}
+#### Example
 
-=== set ===
-==== Description ====
-||_void_ *set* ( object )||
+    // Setting paramters at creation
+    var myUpload = $(element).upload({
+    	params: {name: 'My file', description: 'My file description'}  
+    });
+
+    /**
+     * Settings paramaters during runtime
+     * 	name: "My file" is replaced with "My new file
+     * 	description: remains the same
+     * 	size: is added
+     */
+    myUpload.params({
+    	name: 'My new file', size: '1000kb'
+    });
+
+
+### set
+#### Description
+
+_void_ **set** ( object )
 
 This function is used to alter options after creation of the object.
-==== Example ====
-{{{
-//Setting options at creation
-var myUpload = $(element).upload( /** options */ );
 
-//Setting options after creation
-myUpload.set({
-	name: 'file',
-	action: '',
-	enctype: 'multipart/form-data',
-	params: {},
-	autoSubmit: true,
-	onSubmit: function() {},
-	onComplete: function() {},
-	onSelect: function() {}
-});
-}}}
+#### Example
 
-=== submit ===
-==== Description ====
-||_void_ *submit* ( object )||
+    // Setting options at creation
+    var myUpload = $(element).upload( /** options */ );
 
-This function is used to submit the form if _*autoSubmit*_ is turned off.
-==== Example ====
+    //Setting options after creation
+    myUpload.set({
+    	name: 'file',
+    	action: '',
+    	enctype: 'multipart/form-data',
+    	params: {},
+    	autoSubmit: true,
+    	onSubmit: function() {},
+    	onComplete: function() {},
+    	onSelect: function() {}
+    });
+
+### submit
+#### Description
+
+_void_ **submit** ( object )
+
+This function is used to submit the form if `autoSubmit` is turned off.
+
+#### Example
+
 Javascript
-{{{
-var myUpload = $(element).upload( /** options */ );
-}}}
+
+    var myUpload = $(element).upload( /** options */ );
+
 HTML
-{{{
-<input type="button" value="submit" onclick="myUpload.submit()" />
-}}}
 
-== Callbacks ==
+    <input type="button" value="submit" onclick="myUpload.submit()" />
 
-=== onSubmit ===
-||_void_ *onSubmit* ( void )||
 
-==== Description ====
+## Callbacks
+
+### onSubmit
+
+_void_ **onSubmit** ( void )
+
+#### Description ####
+
 This is called before the form is submitted, this is where you should make last minute changes to the parameters etc...
 
-=== onComplete ===
-||_void_ *onComplete* ( response )||
+### onComplete
 
-==== Description ====
+_void_ **onComplete** ( response )
+
+#### Description
+
 This is called after the action page has loaded, the first parameter contains the html response from the action so you can use it like an AJAX response. _*onComplete*_ does not mean the file was uploaded successfully, you should use the action script to supply a suitable response.
 
-=== onSelect ===
-||_void_ *onSelect* ( void )||
+### onSelect
 
-==== Description ====
+_void_ **onSelect** ( void )
+
+#### Description
+
 This is called after the file browse window is closed or the value of the file input is changed.
