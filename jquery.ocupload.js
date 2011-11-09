@@ -55,7 +55,7 @@
 
         /** Upload iframe */
         var iframe = $("<iframe></iframe>", {
-            id: id,
+            id: "iframe" + id,
             name: "iframe" + id
         }).css({
             display: "none"
