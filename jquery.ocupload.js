@@ -72,6 +72,10 @@
             padding: 0
         });
 
+        /** Get cursor type from the object ocupload was assigned to */
+        /** TODO: Add parameter to init? cursor: auto, cursor: pointer etc */
+        var element_cursor = element.css('cursor');
+
         /** File Input */
         var input = $("<input>", {
             name: options.name,
@@ -80,6 +84,7 @@
             position: 'relative',
             display: 'block',
             marginLeft: -175 + 'px',
+            cursor: element_cursor,
             opacity: 0
         });
 
@@ -96,7 +101,7 @@
             height: element.outerHeight() + 'px',
             width: element.outerWidth() + 'px',
             overflow: 'hidden',
-            cursor: 'pointer',
+            cursor: element_cursor,
             margin: 0,
             padding: 0
         });
