@@ -72,14 +72,18 @@
             padding: 0
         });
 
+        /** Get cursor type from the object ocupload was assigned to */
+        /** TODO: Add parameter to init? cursor: auto, cursor: pointer etc */
+        var element_cursor = element.css('cursor');
+
         /** File Input */
         var input = $("<input>", {
             name: options.name,
             "type": "file"
         }).css({
-            position: 'relative',
+            position: 'absolute',
             display: 'block',
-            marginLeft: -175 + 'px',
+            cursor: element_cursor,
             opacity: 0
         });
 
@@ -96,20 +100,20 @@
             height: element.outerHeight() + 'px',
             width: element.outerWidth() + 'px',
             overflow: 'hidden',
-            cursor: 'pointer',
+            cursor: element_cursor,
             margin: 0,
             padding: 0
         });
 
-        /** Put our file input in the right place */
-
-        input.css('marginTop', -container.height() - 10 + 'px');
+        /** Get input dimensions so we can put it in the right place */
+        var input_height = input.outerHeight(1);
+        var input_width = input.outerWidth(1);
 
         /** Move the input with the mouse to make sure it get clicked! */
         container.mousemove(function(e) {
             input.css({
-                top: e.pageY - container.offset().top + 'px',
-                left: e.pageX - container.offset().left + 'px'
+                top: e.pageY-container.offset().top-(input_height/2)+'px',
+                left: e.pageX-container.offset().left-input_width+30+'px'
             });
         });
 
