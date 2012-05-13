@@ -123,16 +123,18 @@
             });
         });
 
-        /** Watch for file selection */
-        input.change(function() {
-            /** Do something when a file is selected. */
-            self.onSelect();
+        function onChange() {
+          /** Do something when a file is selected. */
+          self.onSelect();
 
-            /** Submit the form automaticly after selecting the file */
-            if (self.autoSubmit) {
-                self.submit();
-            }
-        });
+          /** Submit the form automaticly after selecting the file */
+          if (self.autoSubmit) {
+              self.submit();
+          }
+        }
+
+        /** Watch for file selection */
+        input.change(onChange);
 
         /** Methods */
         $.extend(this, {
@@ -240,16 +242,13 @@
                 /** Do something before we upload */
                 this.onSubmit();
 
-                /** add additional paramters before sending */
-                $.each(options.params,
-                function(key, value) {
-                    form.append($(
-                    '<input ' +
-                    'type="hidden" ' +
-                    'name="' + key + '" ' +
-                    'value="' + value + '" ' +
-                    '/>'
-                    ));
+                /** add additional parameters before sending */
+                $.each(options.params, function(key, value) {
+                    field = form.find("input:hidden[name='" + key + "']");
+                    if (!field.length) {
+                      field = $('<input type="hidden">').attr("name", key).appendTo(form);
+                    }
+                    field.val(value);
                 });
 
                 /** Submit the actual form */
@@ -264,6 +263,14 @@
                     /** Do something on complete */
                     self.onComplete(response);
                     //done :D
+
+                    // Reset file input field
+                    input.wrap("<div></div>");
+                    var wrapper = input.parent();
+                    input = $(wrapper.html());
+                    input.change(onChange);
+                    wrapper.replaceWith(input);
+
                 });
             }
         });
