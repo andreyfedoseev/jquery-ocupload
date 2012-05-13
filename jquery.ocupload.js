@@ -106,8 +106,14 @@
         });
 
         /** Get input dimensions so we can put it in the right place */
-        var input_height = input.outerHeight(1);
-        var input_width = input.outerWidth(1);
+        var input_height = input.outerHeight(element.outerHeight());
+        var input_width = input.outerWidth(element.outerWidth());
+        input.css({
+          margin: "0",
+          padding: "0",
+          top: "0",
+          left: "0"
+        });
 
         /** Move the input with the mouse to make sure it get clicked! */
         container.mousemove(function(e) {

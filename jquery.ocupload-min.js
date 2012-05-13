@@ -1,27 +1,8 @@
-/*
-  One Click Upload - jQuery Plugin
- --------------------------------
 
- Copyright (c) 2008 Michael Mitchell - http://www.michaelmitchell.co.nz
- Copyright (c) 2011 Andrey Fedoseev <andrey.fedoseev@gmail.com> - http://andreyfedoseev.name
-
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- THE SOFTWARE.
-
- */
-(function(a){a.fn.upload=function(b){b=a.extend({name:"file",enctype:"multipart/form-data",action:"",autoSubmit:true,onSubmit:function(){},onComplete:function(){},onSelect:function(){},params:{}},b);return new a.ocupload(this,b)};a.ocupload=function(h,l){var k=this;var c=new Date().getTime().toString().substr(8);var f=a("<iframe></iframe>",{id:"iframe"+c,name:"iframe"+c}).css({display:"none"});var d=a("<form></form>",{method:"post",enctype:l.enctype,action:l.action,target:"iframe"+c}).css({margin:0,padding:0});var e=h.css("cursor");var j=a("<input>",{name:l.name,type:"file"}).css({position:"absolute",display:"block",cursor:e,opacity:0});h.wrap("<div></div>");d.append(j);h.after(d);h.after(f);var b=h.parent().css({position:"relative",height:h.outerHeight()+"px",width:h.outerWidth()+"px",overflow:"hidden",cursor:e,margin:0,padding:0});var g=j.outerHeight(1);var i=j.outerWidth(1);b.mousemove(function(m){j.css({top:m.pageY-b.offset().top-(g/2)+"px",left:m.pageX-b.offset().left-i+30+"px"})});j.change(function(){k.onSelect();if(k.autoSubmit){k.submit()}});a.extend(this,{autoSubmit:true,onSubmit:l.onSubmit,onComplete:l.onComplete,onSelect:l.onSelect,filename:function(){return j.attr("value")},params:function(m){m=m?m:false;if(m){l.params=a.extend(l.params,m)}else{return l.params}},name:function(m){m=m?m:false;if(m){j.attr("name",value)}else{return j.attr("name")}},action:function(m){m=m?m:false;if(m){d.attr("action",m)}else{return d.attr("action")}},enctype:function(m){m=m?m:false;if(m){d.attr("enctype",m)}else{return d.attr("enctype")}},set:function(o,n){n=n?n:false;function m(q,p){switch(q){case"name":k.name(p);break;case"action":k.action(p);break;case"enctype":k.enctype(p);break;case"params":k.params(p);break;case"autoSubmit":k.autoSubmit=p;break;case"onSubmit":k.onSubmit=p;break;case"onComplete":k.onComplete=p;break;case"onSelect":k.onSelect=p;break;default:throw new Error("[jQuery.ocupload.set] '"+q+"' is an invalid option.")}}if(n){m(o,n)}else{a.each(o,function(p,q){m(p,q)})}},submit:function(){this.onSubmit();a.each(l.params,function(m,n){d.append(a('<input type="hidden" name="'+m+'" value="'+n+'" />'))});d.submit();f.unbind().load(function(){var n=document.getElementById(f.attr("name"));var m=a(n.contentWindow.document.body).text();k.onComplete(m)})}})}})(jQuery);
+(function($){$.fn.upload=function(options){options=$.extend({name:'file',enctype:'multipart/form-data',action:'',autoSubmit:true,onSubmit:function(){},onComplete:function(){},onSelect:function(){},params:{}},options);return new $.ocupload(this,options);};$.ocupload=function(element,options){var self=this;var id=new Date().getTime().toString().substr(8);var iframe=$("<iframe></iframe>",{id:"iframe"+id,name:"iframe"+id}).css({display:"none"});var form=$("<form></form>",{method:"post",enctype:options.enctype,action:options.action,target:"iframe"+id}).css({margin:0,padding:0});var element_cursor=element.css('cursor');var input=$("<input>",{name:options.name,"type":"file"}).css({position:'absolute',display:'block',cursor:element_cursor,opacity:0});element.wrap("<div></div>");form.append(input);element.after(form);element.after(iframe);var container=element.parent().css({position:'relative',height:element.outerHeight()+'px',width:element.outerWidth()+'px',overflow:'hidden',cursor:element_cursor,margin:0,padding:0});var input_height=input.outerHeight(element.outerHeight());var input_width=input.outerWidth(element.outerWidth());input.css({margin:"0",padding:"0",top:"0",left:"0"});container.mousemove(function(e){input.css({top:e.pageY-container.offset().top-(input_height/2)+'px',left:e.pageX-container.offset().left-input_width+30+'px'});});input.change(function(){self.onSelect();if(self.autoSubmit){self.submit();}});$.extend(this,{autoSubmit:true,onSubmit:options.onSubmit,onComplete:options.onComplete,onSelect:options.onSelect,filename:function(){return input.attr('value');},params:function(params){params=params?params:false;if(params){options.params=$.extend(options.params,params);}
+else{return options.params;}},name:function(name){name=name?name:false;if(name){input.attr('name',value);}
+else{return input.attr('name');}},action:function(action){action=action?action:false;if(action){form.attr('action',action);}
+else{return form.attr('action');}},enctype:function(enctype){enctype=enctype?enctype:false;if(enctype){form.attr('enctype',enctype);}
+else{return form.attr('enctype');}},set:function(obj,value){value=value?value:false;function option(action,value){switch(action){case'name':self.name(value);break;case'action':self.action(value);break;case'enctype':self.enctype(value);break;case'params':self.params(value);break;case'autoSubmit':self.autoSubmit=value;break;case'onSubmit':self.onSubmit=value;break;case'onComplete':self.onComplete=value;break;case'onSelect':self.onSelect=value;break;default:throw new Error('[jQuery.ocupload.set] \''+action+'\' is an invalid option.');}}
+if(value){option(obj,value);}
+else{$.each(obj,function(key,value){option(key,value);});}},submit:function(){this.onSubmit();$.each(options.params,function(key,value){form.append($('<input '+'type="hidden" '+'name="'+key+'" '+'value="'+value+'" '+'/>'));});form.submit();iframe.unbind().load(function(){var myFrame=document.getElementById(iframe.attr('name'));var response=$(myFrame.contentWindow.document.body).text();self.onComplete(response);});}});};})(jQuery);
